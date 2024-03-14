@@ -1,0 +1,91 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    .copy-text {
+	 margin: auto;
+	 position: relative;
+	 margin-top: 5rem;
+	 background: #fff;
+	 border: 1px solid #ddd;
+	 border-radius: 10px;
+	 display: flex;
+	 justify-content: space-between;
+	 width: 50%;
+}
+ .copy-text input.text {
+	 padding: 10px;
+	 font-size: 18px;
+	 color: #555;
+	 border: none;
+	 outline: none;
+	 width: 100%;
+	 cursor: text;
+}
+ .copy-text button {
+	 padding: 10px;
+	 background: #5784f5;
+	 color: #fff;
+	 font-size: 18px;
+	 border: none;
+	 outline: none;
+	 border-radius: 10px;
+	 cursor: pointer;
+}
+ .copy-text button:active {
+	 background: #809ce2;
+}
+ .copy-text button:before {
+	 content: "Copied";
+	 position: absolute;
+	 top: -45px;
+	 right: -15px;
+	 background: #5c81dc;
+	 padding: 8px 10px;
+	 border-radius: 20px;
+	 font-size: 15px;
+	 display: none;
+	 opacity: 0;
+}
+ .copy-text button:after {
+	 content: "";
+	 position: absolute;
+	 top: -17px;
+	 right: 15px;
+	 width: 10px;
+	 height: 10px;
+	 background: #5c81dc;
+	 display: none;
+	 transform: rotate(45deg);
+}
+ .copy-text.active button:before, .copy-text.active button:after {
+	 display: block;
+	 opacity: 1;
+}
+ 
+</style>
+<div class="copy-text">
+    <input disabled type="text" class="text" value="my text" />
+    <button><i class="fa fa-clone"></i></button>
+</div>
+
+<script>
+    // Share button modal post link copy
+    let copyText = document.querySelector(".copy-text");
+    copyText.querySelector("button").addEventListener("click", function () {
+        let input = copyText.querySelector("input.text");
+
+        // Temporarily remove the 'disabled' attribute
+        input.removeAttribute('disabled');
+
+        input.select();
+        document.execCommand("copy");
+
+        // Re-disable the input after copying
+        input.setAttribute('disabled', '');
+
+        copyText.classList.add("active");
+        window.getSelection().removeAllRanges();
+        setTimeout(function () {
+            copyText.classList.remove("active");
+        }, 2500);
+    });
+</script>
